@@ -13,7 +13,6 @@ Y_SQUARES = 8
 DELTA_X = BOARD.width/X_SQUARES
 DELTA_Y = BOARD.height/Y_SQUARES
 
-# Do I need different sprites for each color?
 WPAWN = pygame.image.load('sprites/wpawn.png')
 WKNIGHT = pygame.image.load('sprites/wknight.png')
 WBISHOP = pygame.image.load('sprites/wbishop.png')
