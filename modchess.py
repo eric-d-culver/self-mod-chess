@@ -26,6 +26,18 @@ WBISHOP = pygame.transform.smoothscale(WBISHOP, (DELTA_X, DELTA_Y))
 WROOK = pygame.transform.smoothscale(WROOK, (DELTA_X, DELTA_Y))
 WQUEEN = pygame.transform.smoothscale(WQUEEN, (DELTA_X, DELTA_Y))
 WKING = pygame.transform.smoothscale(WKING, (DELTA_X, DELTA_Y))
+BPAWN = pygame.image.load('sprites/bpawn.png')
+BKNIGHT = pygame.image.load('sprites/bknight.png')
+BBISHOP = pygame.image.load('sprites/bbishop.png')
+BROOK = pygame.image.load('sprites/brook.png')
+BQUEEN = pygame.image.load('sprites/bqueen.png')
+BKING = pygame.image.load('sprites/bking.png')
+BPAWN = pygame.transform.smoothscale(BPAWN, (DELTA_X, DELTA_Y))
+BKNIGHT = pygame.transform.smoothscale(BKNIGHT, (DELTA_X, DELTA_Y))
+BBISHOP = pygame.transform.smoothscale(BBISHOP, (DELTA_X, DELTA_Y))
+BROOK = pygame.transform.smoothscale(BROOK, (DELTA_X, DELTA_Y))
+BQUEEN = pygame.transform.smoothscale(BQUEEN, (DELTA_X, DELTA_Y))
+BKING = pygame.transform.smoothscale(BKING, (DELTA_X, DELTA_Y))
 
 pieceArray = [ [0]*X_SQUARES for _ in range(Y_SQUARES) ]
 movesArray = [ [0]*X_SQUARES for _ in range(Y_SQUARES) ]
@@ -49,6 +61,18 @@ def piece(num):
 		return WQUEEN
 	elif num == 6:
 		return WKING
+	elif num == -1:
+		return BPAWN
+	elif num == -2:
+		return BKNIGHT
+	elif num == -3:
+		return BBISHOP
+	elif num == -4:
+		return BROOK
+	elif num == -5:
+		return BQUEEN
+	elif num == -6:
+		return BKING
 
 def drawBoard(surface, where, color):
 	if color == 0:
@@ -93,23 +117,3 @@ def game_quit():
 
 DISPLAYSURF = game_init()
 game_main_loop(DISPLAYSURF)
-
-'''
-pygame.init()
-DISPLAYSURF = pygame.display.set_mode((300, 300))
-pygame.display.set_caption('Self-Modifying Chess')
-
-while True:
-	for event in pygame.event.get():
-		if event.type == QUIT:
-			game_quit()
-
-	DISPLAYSURF.fill(BACKGROUND)
-	for i in range(X_SQUARES):
-		for j in range(Y_SQUARES):
-			here = (BOARD.left + i*DELTA_X, BOARD.top + j*DELTA_Y)
-			drawBoard(DISPLAYSURF, here, (i+j)%2)
-			drawHighlights(DISPLAYSURF, here,  movesArray[i][j])
-			drawPieces(DISPLAYSURF, here, pieceArray[i][j])
-	pygame.display.update()
-'''
