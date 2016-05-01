@@ -1,6 +1,9 @@
 import pygame, sys
 from pygame.locals import *
 
+# mouse buttons
+LEFTBUTTON = 1
+
 # colors
 BACKGROUND = (255, 255, 255)
 BLACKSQUARES = (209, 139, 71)
@@ -45,6 +48,8 @@ BKING = pygame.transform.smoothscale(BKING, (DELTA_X, DELTA_Y))
 pieceArray = [ [0]*X_SQUARES for _ in range(Y_SQUARES) ]
 # movesArray contains current possible moves
 movesArray = [ [0]*X_SQUARES for _ in range(Y_SQUARES) ]
+# piecePicked boolean if piece currently highlighted
+piecePicked = False
 
 # testing values
 movesArray[3][0] = 1
@@ -87,7 +92,7 @@ def drawBoard(surface, where, color):
 	else:
 		pygame.draw.rect(surface, BLACKSQUARES, where + (DELTA_X, DELTA_Y))
 
-# draws highlight squares (current selected piece and possible moves)
+# draws highlighted squares (current selected piece and possible moves)
 def drawHighlights(surface, where, move):
 	if move == 1:
 		pygame.draw.rect(surface, MOVETOSQUARES, where + (DELTA_X, DELTA_Y))
@@ -99,6 +104,23 @@ def drawPieces(surface, where, pieceNum):
 	if pieceNum > 0:
 		surface.blit(piece(pieceNum), where)
 
+# draws game
+def draw_game(surface):
+	surface.fill(BACKGROUND)
+		for i in range(X_SQUARES):
+			for j in range(Y_SQUARES):
+				here = (BOARD.left + i*DELTA_X, BOARD.top + j*DELTA_Y)
+				drawBoard(surface, here, (i+j)%2)
+				drawHighlights(surface, here,  movesArray[i][j])
+				drawPieces(surface, here, pieceArray[i][j])
+	pygame.display.update()
+
+
+# processes clicks
+def processClick(where):
+	#do stuff here
+	pass
+
 # initializes game
 def game_init():
 	pygame.init()
@@ -109,19 +131,13 @@ def game_init():
 # main loop
 def game_main_loop(display):
 	while True:
-		display.fill(BACKGROUND)
-		for i in range(X_SQUARES):
-			for j in range(Y_SQUARES):
-				here = (BOARD.left + i*DELTA_X, BOARD.top + j*DELTA_Y)
-				drawBoard(display, here, (i+j)%2)
-				drawHighlights(display, here,  movesArray[i][j])
-				drawPieces(display, here, pieceArray[i][j])
-		pygame.display.update()
-	
+		draw_game(display)
 		for event in pygame.event.get():
-			#print(event)
 			if event.type == QUIT:
 				game_quit()
+			elif event.type == MOUSEBUTTONDOWN and event.button == LEFTBUTTON:
+				processClick(event.pos)
+				#print(event)
 
 # quits game
 def game_quit():
