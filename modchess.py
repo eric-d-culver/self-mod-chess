@@ -54,7 +54,7 @@ piecePicked = False
 # testing values
 movesArray[3][0] = 1
 movesArray[0][1] = -1
-pieceArray[0][3] = 3
+pieceArray[0][3] = -3
 pieceArray[3][0] = 1
 # end testing values
 
@@ -101,18 +101,18 @@ def drawHighlights(surface, where, move):
 
 # draws pieces
 def drawPieces(surface, where, pieceNum):
-	if pieceNum > 0:
+	if pieceNum != 0:
 		surface.blit(piece(pieceNum), where)
 
 # draws game
 def draw_game(surface):
 	surface.fill(BACKGROUND)
-		for i in range(X_SQUARES):
-			for j in range(Y_SQUARES):
-				here = (BOARD.left + i*DELTA_X, BOARD.top + j*DELTA_Y)
-				drawBoard(surface, here, (i+j)%2)
-				drawHighlights(surface, here,  movesArray[i][j])
-				drawPieces(surface, here, pieceArray[i][j])
+	for i in range(X_SQUARES):
+		for j in range(Y_SQUARES):
+			here = (BOARD.left + i*DELTA_X, BOARD.top + j*DELTA_Y)
+			drawBoard(surface, here, (i+j)%2)
+			drawHighlights(surface, here,  movesArray[i][j])
+			drawPieces(surface, here, pieceArray[i][j])
 	pygame.display.update()
 
 
